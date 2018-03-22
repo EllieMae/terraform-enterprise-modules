@@ -297,7 +297,7 @@ module "db" {
   password                = "${var.db_password}"
   storage_gbs             = "${var.db_size_gb}"
   subnet_ids              = "${var.data_subnet_ids}"
-  engine_version          = "9.4.7"
+  engine_version          = "9.4"
   vpc_cidr                = "${data.aws_vpc.vpc.cidr_block}"
   vpc_id                  = "${data.aws_subnet.instance.vpc_id}"
   backup_retention_period = "31"
