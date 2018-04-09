@@ -70,7 +70,7 @@ resource "aws_security_group" "rds" {
 }
 
 resource "aws_db_instance" "rds" {
-  count                     = "${var.disable ? 0 : 1}"
+#  count                     = "${var.disable ? 0 : 1}"
   identifier                = "${var.name}"
   engine                    = "postgres"
   engine_version            = "${var.engine_version}"
