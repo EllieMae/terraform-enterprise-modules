@@ -316,7 +316,7 @@ module "redis" {
   vpc_id        = "${data.aws_subnet.instance.vpc_id}"
   instance_type = "cache.m3.medium"
 }
-
+/*
 output "kms_key_id" {
   value = "${coalesce(var.kms_key_id, join("", aws_kms_key.key.*.arn))}"
 }
@@ -335,4 +335,4 @@ output "zone_id" {
 
 output "iam_role" {
   value = "${module.instance.iam_role}"
-}
+}*/
