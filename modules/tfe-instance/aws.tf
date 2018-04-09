@@ -338,7 +338,7 @@ resource "aws_elb" "ptfe" {
     Name = "terraform-enterprise"
   }
 }
-
+/*
 output "dns_name" {
   value = "${aws_elb.ptfe.dns_name}"
 }
@@ -349,4 +349,4 @@ output "zone_id" {
 
 output "hostname" {
   value = "${var.hostname}"
-}
+}*/
