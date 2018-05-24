@@ -258,6 +258,7 @@ module "instance" {
   ami_id                      = "${var.ami_id}"
   instance_type               = "${var.instance_type}"
   hostname                    = "${var.fqdn}"
+  ebs_size = "${var.ebs_size}"
   vpc_id                      = "${data.aws_subnet.instance.vpc_id}"
   cert_id                     = "${var.cert_id}"
   instance_subnet_id          = "${var.instance_subnet_id}"
