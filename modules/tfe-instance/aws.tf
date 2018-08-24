@@ -135,6 +135,40 @@ resource "aws_security_group" "ptfe" {
   }
 }
 
+  resource "aws_security_group" "ptfe-external" {
+  count  = "${length(var.external_security_group_ids) != 0 ? 0 : 1}"
+  vpc_id = "${var.vpc_id}"
+   ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+   ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["209.220.148.28/32"]
+  }
+   # TCP All outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+   # UDP All outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+   tags {
+    Name = "terraform-enterprise-external"
+  }
+}
+  
 data "aws_subnet" "subnet" {
   id = "${var.instance_subnet_id}"
 }
@@ -270,7 +304,7 @@ EXTRA_NO_PROXY="${var.no_proxy}"
 resource "aws_elb" "ptfe" {
   internal        = "${var.internal_elb}"
   subnets         = ["${var.elb_subnet_id}"]
-  security_groups = ["${var.external_security_group_ids}"]
+  security_groups = ["${concat(var.external_security_group_ids, aws_security_group.ptfe-external.*.id)}"]
 
   listener {
     instance_port      = 8080
